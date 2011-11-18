@@ -32,19 +32,19 @@
 		//    Publish stuff on '/some/topic'. Anything subscribed will be called
 		//    with a function signature like: function(a,b,c){ ... }
 		//
-		//  |   $.publish("/some/topic", ["a","b","c"]);
+		//  |   tash.events.publish("/some/topic", ["a","b","c"]);
 		// dmolin: TODO: we have to allow for passing specific scope for bound events
 		
 		if( !cache[topic]) {
 			return;
 		}
 		
-		$.each(cache[topic], function(){
-			this.apply( $, args || []);
+		$.each( cache[topic], function( elem, index ){
+			elem.apply( $, args || []);
 		});
 	}
 
-	function _subscribe(/* String */topic, /* Function */callback){
+	function _subscribe(/* String */topic, /* Function */callback, /* Object */scope ){
 		// summary:
 		//    Register a callback on a named topic.
 		// topic: String
@@ -53,13 +53,19 @@
 		//    The handler event. Anytime something is $.publish'ed on a 
 		//    subscribed channel, the callback will be called with the
 		//    published array as ordered arguments.
+		// scope: Object
+		//    the scope to use as 'this' when invoking the callback
 		//
 		// returns: Array
-		//    A handle which can be used to unsubscribe this particular subscription.
+		//    A handle which can be used to unsubscribe this particular subscription or false if subscription fails.
 		//  
 		// example:
-		//  | $.subscribe("/some/topic", function(a, b, c){ /* handle data */ });
+		//  | tash.events.subscribe("/some/topic", function(a, b, c){ /* handle data */ });
 		//
+		if( !topic || typeof callback !== 'function' ) {
+			return false;
+		}
+		
 		if(!cache[topic]){
 			cache[topic] = [];
 		}
@@ -84,8 +90,8 @@
 		
 		t = handle[0];
 		if( cache[t] ) {
-			$.each(cache[t], function(idx){
-				if(this == handle[1]) {
+			$.each(cache[t], function(elem, idx){
+				if( elem == handle[1]) {
 					cache[t].splice(idx, 1);
 				}
 			});
@@ -110,8 +116,8 @@
 	*
 	* that's all!
 	*/
-	brandx.events.require = function( namespacedEvent ) {
-		var completeNamespace = "brandx.events",
+	$.events.require = function( namespacedEvent ) {
+		var completeNamespace = "events",
 			nspace;
 			
 		if( !namespacedEvent || namespacedEvent.length === 0 ) {
@@ -120,16 +126,16 @@
 		
 		completeNamespace += (namespacedEvent.charAt(0) === '.' ? namespacedEvent : "." + namespacedEvent );
 		
-		nspace = namespace( completeNamespace );
+		nspace = $.namespace( completeNamespace );
 		
-		//if namespace is already in place, nothing happens
+		//if namespace function is already in place, nothing happens
 		if( typeof nspace.publish === 'function' ) {
 			return nspace; //nothing to do, namespace already existing
 		}
 		
 		//create the publish/subscribe/unsubscribe functions in the namespace
 		nspace.publish = function( data ) { 
-			//console.log( "publishing " + namespacedEvent );
+			//$.log( "publishing " + namespacedEvent );
 			_publish( namespacedEvent, ( $.isArray(data) ? data : [data]) ); 
 		};
 		nspace.subscribe = function( callback ) { return _subscribe( namespacedEvent, callback ); };
