@@ -31,3 +31,39 @@
 	namespace(name).namespace = namespace;
 }('tash'));
 
+(function($){
+	/**
+	* Determines if the passed in Object IS an Array
+	*/
+	$.isArray = function isArray( /* Array */ obj ){
+		if( typeof obj === 'undefined' ) {
+			return false;
+		}
+		
+		return Object.prototype.toString.call(obj).match(/Array/) !== null;
+	};
+	
+	/**
+	* Internal iterator over a collection.
+	* Iterates over the collection and calls the given callback function.
+	* a third argument can be passed in as the callback scope. If not present, the callback scope
+	* whill be "this", resolving to the actual call context (normally tash itself).
+	*
+	* NOTE: Returning false from the callback will stop the iteration.
+	*/
+	$.each = function each( /* Array */obj, /* Function */cb, /* object */scope ) {
+		var index;
+		
+		if( !$.isArray( obj ) ) {
+			return; //no array, no loop
+		}
+		
+		for( index in obj ) {
+			if( obj.hasOwnProperty( index ) ) {
+				if( cb.call( (scope ? scope : this), obj[index], index ) === false ) {
+					break;
+				}
+			}
+		}
+	};
+}(tash));
