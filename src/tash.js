@@ -6,13 +6,15 @@
  *--------------------------------------------------------------------------*/
 
 /**
- * To define a namespace function and, at the same time, 
- * put that same function into a "scope" ;)
- */
+* This function define a new namespace, under its own containing namespace.
+* (ex.: tash.namespace( 'mine' ) will resolve to "tash.mine" )
+* This tricky function defines a namespace function and, at the same time, 
+* put that same function into the given namespace ;)
+*/
 (function(name){
 	function namespace(nspace) {
 		var nspaces = !nspace ? '' : nspace.split('.'),
-			parent = window,
+			parent = this,
 			i = 0;
 		for( i in nspaces ) {
 			if( nspaces.hasOwnProperty(i) ) {
@@ -27,5 +29,5 @@
 		return parent;
 	}
 	namespace(name).namespace = namespace;
-}(tash));
+}('tash'));
 
