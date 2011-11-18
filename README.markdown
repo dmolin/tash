@@ -23,6 +23,13 @@ Prototype currently targets the following platforms:
 * Opera 10 and higher
 * Chrome
 
+### Note to the reader ###
+
+This library is still in development and currently in version 0.1.
+I've still to add aggregation/minification support and normalize the code. 
+The library, as it is now, is not yet ready to be used. It will be ready when it will reach
+version 0.2, around November 25th 2011.
+
 Using Tash
 ---------------
 
