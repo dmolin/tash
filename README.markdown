@@ -75,9 +75,10 @@ Publishing an event is simply a matter of calling tash.events.<namespace passed 
 
 If we required "account.UserJustLoggedIn", we can call:
 
-  tash.events.account.UserJustLoggedIn.publish();
+    tash.events.account.UserJustLoggedIn.publish();
 or
-  tash.events.account.UserJustLoggedIn.publish( <whatever data we want to pass>, ... );
+
+    tash.events.account.UserJustLoggedIn.publish( <whatever data we want to pass>, ... );
 
 This call will immediately notify all subscribers. At this time, the event system is synchronous, thus at the end of this call all the subscriber will've been notified.
 An Asynchronous interface is still under development.
@@ -87,12 +88,13 @@ An Asynchronous interface is still under development.
 
 Subscribing is really that simple; just require the namespace (if not already done) and then call subscribe:
 
-  var subscription = tash.events.account.UserJustLoggedIn.subscribe( function( <same arguments passed to publish> ) { 
-	//do what we want...
-  })
+    var subscription = tash.events.account.UserJustLoggedIn.subscribe( function( <same arguments passed to publish> ) { 
+        //do what we want...
+    })
 
 #### UnSubscribing from an Event ####
 
 Unsubscribing is even more simpler:
 
-  tash.events.account.UserJustLoggedIn.unsubscribe( subscription );
+    tash.events.account.UserJustLoggedIn.unsubscribe( subscription );
+
