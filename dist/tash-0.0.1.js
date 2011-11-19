@@ -108,7 +108,7 @@
 		}
 		
 		$.each( cache[topic], function( elem, index ){
-			elem.apply( $, args || []);
+			elem.callback.apply( elem.scope, args || []);
 		});
 	}
 
@@ -116,13 +116,13 @@
 		// summary:
 		//    Register a callback on a named topic.
 		// topic: String
-		//    The channel to subscribe to
+		//    The channel to subscribe to (accept also namespaced topics)
 		// callback: Function
 		//    The handler event. Anytime something is $.publish'ed on a 
 		//    subscribed channel, the callback will be called with the
 		//    published array as ordered arguments.
 		// scope: Object
-		//    the scope to use as 'this' when invoking the callback
+		//    the scope to use as 'this' when invoking the callback. if not given, the scope will be Tash
 		//
 		// returns: Array
 		//    A handle which can be used to unsubscribe this particular subscription or false if subscription fails.
@@ -137,8 +137,8 @@
 		if(!cache[topic]){
 			cache[topic] = [];
 		}
-		cache[topic].push(callback);
-		return [topic, callback]; // Array
+		cache[topic].push( { callback: callback, scope: (scope ? scope : $) } );
+		return [topic, callback ]; // Array
 	}
 
 	function _unsubscribe(/* Array */handle){
