@@ -4,7 +4,7 @@ Tash
 #### An event-based common JavaScript Library ####
 
 Tash is a small, simple Javascript library, containing a set of common namespaced 
-functions, useful for common tasks. Its intent is to group in a reusable library
+functions, useful for common tasks, mainly loosely coupled communication between components. Its intent is to group in a reusable library
 the basic patterns and functions that should be the base of any Javascript application.
 
 Tash offers:
