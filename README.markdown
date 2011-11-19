@@ -51,22 +51,23 @@ In order to publish/subscribe, it's only necessary:
 
 To declare what event are we going to deal with, we have to execute this line of code:
 
-  tash.events.require( "eventName" );
+    tash.events.require( "eventName" );
 
 The name of the event can be namespaced, using "." for separating scopes, as in:
 
-  tash.events.require( "account.UserJustLoggedIn" );
+    tash.events.require( "account.UserJustLoggedIn" );
 
 The call to the require function will 'create' the requested namespace. the event name becomes thus a namespace, with 3 functions in it, created for us:
-  - publish( event data );
-  - subscribe( callback, [scope] );
-  - unsubscribe( subscriptionHandle );
+
+    - publish( event data );
+    - subscribe( callback, [scope] );
+    - unsubscribe( subscriptionHandle );
 
 All the functions are automatically generated and bound to the namespace we required. So, following the previous example, after the call to require() we have:
 
-  tash.events.account.UserJustLoggedIn.publish = function
-  tash.events.account.UserJustLoggedIn.subscribe = function
-  tash.events.account.UserJustLoggedIn.unsubscribe = function
+    tash.events.account.UserJustLoggedIn.publish = function
+    tash.events.account.UserJustLoggedIn.subscribe = function
+    tash.events.account.UserJustLoggedIn.unsubscribe = function
 
 
 #### Publishing an Event ####
