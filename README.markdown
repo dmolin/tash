@@ -15,7 +15,7 @@ Tash offers:
 
 ### Targeted platforms ###
 
-Prototype currently targets the following platforms:
+Tash currently targets the following platforms:
 
 * Microsoft Internet Explorer for Windows, version 6.0 and higher
 * Mozilla Firefox 4 and higher
@@ -27,8 +27,7 @@ Prototype currently targets the following platforms:
 
 This library is still in development and currently in version 0.1.
 I've still to add aggregation/minification support and normalize the code. 
-The library, as it is now, is not yet ready to be used. It will be ready when it will reach
-version 0.2, around November 25th 2011.
+The library, as it is now, is not yet ready to be used in production systems but only for personal or experimental use.
 
 Using Tash
 ---------------
