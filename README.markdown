@@ -48,7 +48,7 @@ In order to publish/subscribe, it's only necessary:
 
 #### Requiring an event before usage ####
 
-To declare what event are we going to deal with, we have to execute this line of code:
+In our page, first we have to declare what event are we going to deal with:
 
     tash.events.require( "eventName" );
 
@@ -56,7 +56,7 @@ The name of the event can be namespaced, using "." for separating scopes, as in:
 
     tash.events.require( "account.UserJustLoggedIn" );
 
-The call to the require function will 'create' the requested namespace. the event name becomes thus a namespace, with 3 functions in it, created for us:
+The call to the require function will 'create' the requested namespace, if not already existing (multiple calls are perfectly fine). The event name becomes a namespace, with 3 functions available, created for us:
 
     - publish( event data );
     - subscribe( callback, [scope] );
@@ -64,26 +64,30 @@ The call to the require function will 'create' the requested namespace. the even
 
 All the functions are automatically generated and bound to the namespace we required. So, following the previous example, after the call to require() we have:
 
-    tash.events.account.UserJustLoggedIn.publish = function
-    tash.events.account.UserJustLoggedIn.subscribe = function
-    tash.events.account.UserJustLoggedIn.unsubscribe = function
+    typeof tash.events.account.UserJustLoggedIn.publish = "function"
+    typeof tash.events.account.UserJustLoggedIn.subscribe = "function"
+    typeof tash.events.account.UserJustLoggedIn.unsubscribe = "function"
 
 
 #### Publishing an Event ####
 
-To publish an event is simply a matter of calling tash.event.<namespace passed in in the require>.publish( optional data ).
-if we require "account.UserJustLoggedIn", we can call:
+Publishing an event is simply a matter of calling tash.events.<namespace passed in in the require>.publish( optional data ).
+
+If we required "account.UserJustLoggedIn", we can call:
 
   tash.events.account.UserJustLoggedIn.publish();
 or
-  tash.events.account.UserJustLoggedIn.publish( userId );
+  tash.events.account.UserJustLoggedIn.publish( <whatever data we want to pass>, ... );
+
+This call will immediately notify all subscribers. At this time, the event system is synchronous, thus at the end of this call all the subscriber will've been notified.
+An Asynchronous interface is still under development.
 
 
 #### Subscribing to an Event ####
 
 Subscribing is really that simple; just require the namespace (if not already done) and then call subscribe:
 
-  var subscription = tash.events.account.UserJustLoggedIn.subscribe( function( <same values passed to publish> ) { 
+  var subscription = tash.events.account.UserJustLoggedIn.subscribe( function( <same arguments passed to publish> ) { 
 	//do what we want...
   })
 
