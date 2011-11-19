@@ -43,6 +43,7 @@ like so:
 
 Publishing/Subscribing is done relative to a namespace.
 In order to publish/subscribe, it's only necessary:
+
 - to declare what event name we want to use (namespaced if we want)
 - publish or subscribe
 
