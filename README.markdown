@@ -1,7 +1,7 @@
 Tash
 =========
 
-#### An event-based common JavaScript Library ####
+#### A Publish/Subscribe common JavaScript Library ####
 
 Tash is a small, simple Javascript library, containing a set of common namespaced 
 functions, useful for common tasks, mainly loosely coupled communication between components. Its intent is to group in a reusable library
@@ -25,7 +25,7 @@ Tash currently targets the following platforms:
 
 ### Note to the reader ###
 
-This library is still in development and currently in version 0.1.
+This library is still in development and currently in version 0.0.1.
 I've still to add aggregation/minification support and normalize the code. 
 The library, as it is now, is not yet ready to be used in production systems but only for personal or experimental use.
 
@@ -34,10 +34,10 @@ Using Tash
 
 To use Tash in your application, download the latest release 
 and copy 
-`dist/tash.js` to a suitable location. Then include it in your HTML
+`dist/tash-0.0.1[-min].js` to a suitable location. Then include it in your HTML
 like so:
 
-    <script type="text/javascript" src="/path/to/tash.js"></script>
+    <script type="text/javascript" src="/path/to/tash-0.0.1-min.js"></script>
 
 ### publishing/suscribing events ###
 
@@ -57,7 +57,7 @@ The name of the event can be namespaced, using "." for separating scopes, as in:
 
     tash.events.require( "account.UserJustLoggedIn" );
 
-The call to the require function will 'create' the requested namespace, if not already existing (multiple calls are perfectly fine). The event name becomes a namespace, with 3 functions available, created for us:
+The call to the require function will 'create' the requested namespace, if not already existing (multiple calls are perfectly fine). The event name then becomes a namespace, with 3 new functions created for us:
 
     - publish( event data );
     - subscribe( callback, [scope] );
