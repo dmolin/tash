@@ -33,8 +33,6 @@
 		//    with a function signature like: function(a,b,c){ ... }
 		//
 		//  |   tash.events.publish("/some/topic", ["a","b","c"]);
-		// dmolin: TODO: we have to allow for passing specific scope for bound events
-		
 		if( !cache[topic]) {
 			return;
 		}
@@ -81,7 +79,6 @@
 		// example:
 		//  | var handle = $.subscribe("/something", function(){});
 		//  | $.unsubscribe(handle);
-		
 		var t;
 		
 		if( typeof handle === 'undefined' || !$.isArray(handle) ) {
@@ -135,7 +132,6 @@
 		
 		//create the publish/subscribe/unsubscribe functions in the namespace
 		nspace.publish = function( data ) { 
-			//$.log( "publishing " + namespacedEvent );
 			_publish( namespacedEvent, ( $.isArray(data) ? data : [data]) ); 
 		};
 		nspace.subscribe = function( callback ) { return _subscribe( namespacedEvent, callback ); };

@@ -73,5 +73,6 @@ CommonTest = TestCase( "common functions", (function(){
 				assertEquals( "default this inside the callback should be the context call", this, tash );
 			} );
 		}
+		
 	};
 }()) );

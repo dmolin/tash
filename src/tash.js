@@ -32,6 +32,33 @@
 }('tash'));
 
 (function($){
+		
+		
+	$.config = { 
+		debug: (function(){
+			var consoleEl = null;
+
+			function _getConsole() {
+				if( consoleEl === null ) {
+					consoleEl = document.getElementById( $.config.debug.consoleId );
+				}
+				return consoleEl;
+			}
+			
+			function _set( /* Object */conf ) {
+				
+			}
+			
+			return {
+				set: _set,
+				consoleId : 'debugConsole',
+				isDebug: false,
+				getConsole: _getConsole
+			};
+			
+		}())
+	};
+	
 	/**
 	* Determines if the passed in Object IS an Array
 	*/
@@ -64,6 +91,18 @@
 					break;
 				}
 			}
+		}
+	};
+	
+	$.log = function log( msg ) {
+		if( typeof console !== 'undefined' && typeof console.log === 'function' ) {
+			return console.log.apply( console, arguments );
+		}
+		
+		if( $.config.debug.isDebug ) {
+			var p = document.createElement('p');
+			p.appendChild( document.createTextNode( msg ) );
+			$.config.debug.getConsole().appendChild( p );
 		}
 	};
 }(tash));
