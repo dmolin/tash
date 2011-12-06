@@ -66,12 +66,8 @@
 		if( typeof Array.isArray === 'function' ) {
 			return Array.isArray( obj );
 		}
-		
-		if( typeof obj === 'undefined' ) {
-			return false;
-		}
-		
-		return Object.prototype.toString.call(obj).match(/Array/) !== null;
+
+		return obj !== undefined && Object.prototype.toString.call(obj).match(/Array/) !== null;
 	};
 	
 	/**
