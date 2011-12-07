@@ -38,7 +38,7 @@ CommonTest = TestCase( "common functions", (function(){
 			assertEquals( "callback should've been called " + testArr.length + " times", testArr.length, called );
 		},
 
-		testEachIterationShouldStopReturningFalse: function() {
+		testEachIterationShouldStopWhenReturningFalse: function() {
 			var testArr = ["first", "second", "third" ],
 				called = 0;
 

@@ -62,13 +62,9 @@
 	/**
 	* Determines if the passed in Object IS an Array
 	*/
-	$.isArray = function isArray( /* Array */ obj ){
-		if( typeof Array.isArray === 'function' ) {
-			return Array.isArray( obj );
-		}
-
+	$.isArray = (typeof Array.isArray === 'function' ? Array.isArray : function isArray( /* Array */ obj ){
 		return obj !== undefined && Object.prototype.toString.call(obj).match(/Array/) !== null;
-	};
+	});
 	
 	/**
 	* Internal iterator over a collection.
