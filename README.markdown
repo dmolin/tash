@@ -95,7 +95,7 @@ Subscribing is really that simple; just require the namespace (if not already do
 
 #### UnSubscribing from an Event ####
 
-Unsubscribing is even more simpler:
+Unsubscribing is even simpler:
 
     tash.events.account.UserJustLoggedIn.unsubscribe( subscription );
 
