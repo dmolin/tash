@@ -102,14 +102,14 @@
 	/**
 	* Verify that the required scoped event namespace object exists.
 	* If not, it is created with the corresponding publishing/subscribing functions
-	* Example: if you want to have brandx.events.game.GameInfo with publish, subscribe, unsubscribe,
+	* Example: if you want to have tash.events.game.GameInfo with publish, subscribe, unsubscribe,
 	* you just need to call (before actually using it):
 	*
-	*   brandx.events.require( "game.GameInfo" );
+	*   tash.events.require( "game.GameInfo" );
 	*
 	* After that, you will be able to access:
 	*
-	*	brandx.events.game.GameInfo.publish()/subscribe()/unsubscribe()
+	*	tash.events.game.GameInfo.publish()/subscribe()/unsubscribe()
 	*
 	* that's all!
 	*/
@@ -131,13 +131,11 @@
 		}
 		
 		//create the publish/subscribe/unsubscribe functions in the namespace
-		nspace.publish = function( data ) { 
-			_publish( namespacedEvent, ( $.isArray(data) ? data : [data]) ); 
-		};
+		nspace.publish = function( data ) { _publish( namespacedEvent, ( $.isArray(data) ? data : [data]) ); };
 		nspace.subscribe = function( callback ) { return _subscribe( namespacedEvent, callback ); };
 		nspace.unsubscribe = function( handleFromSubscribe ) { return _unsubscribe( handleFromSubscribe ); };
 		
-		return nspace; //useful for chaining
+		return nspace; //let's allow chaining
 	};
 	
 }(tash));
