@@ -10,7 +10,7 @@
 */
 (function($){
 	
-	$.namespace( 'events' );
+	$.namespace( $, 'events' );
 
 	/*----------------------------------------
 	* Internal privileged functions
@@ -114,14 +114,14 @@
 	* that's all!
 	*/
 	$.events.require = function( namespacedEvent ) {
-		var completeNamespace = "events",
+		var completeNamespace = $.config.namespaceEventsRoot || $.config.namespaceRoot,
 			nspace;
 			
 		if( !namespacedEvent || namespacedEvent.length === 0 ) {
 			return; //no-op
 		}
 		
-		completeNamespace += (namespacedEvent.charAt(0) === '.' ? namespacedEvent : "." + namespacedEvent );
+		completeNamespace += completeNamespace ? ( namespacedEvent.charAt(0) === '.' ? namespacedEvent : "." + namespacedEvent ) : namespacedEvent;
 		
 		nspace = $.namespace( completeNamespace );
 		

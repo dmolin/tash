@@ -1,39 +1,15 @@
 /*  Tash! Compact JavaScript framework, version 0.1
- *  (c) 2011-??? Davide Alberto Molin
+ *  (c) 2011-??? Davide A. Molin
  *
- *  Tash! is freely distributable under the terms of an MIT-style license.
+ * Tash! is freely distributable and released under the MIT, BSD, and GPL Licenses. 
  *
  *--------------------------------------------------------------------------*/
 
-/**
-* This function define a new namespace, under its own containing namespace.
-* (ex.: tash.namespace( 'mine' ) will resolve to "tash.mine" )
-* This tricky function defines a namespace function and, at the same time, 
-* put that same function into the given namespace ;)
-*/
-(function(name){
-	function namespace(nspace) {
-		var nspaces = !nspace ? '' : nspace.split('.'),
-			parent = this,
-			i = 0;
-		for( i in nspaces ) {
-			if( nspaces.hasOwnProperty(i) ) {
-				if( typeof parent[nspaces[i]] === 'undefined' ) {
-					parent[nspaces[i]] = {};
-				}
-				parent = parent[nspaces[i]];
-			}
-		}
-		//let's return the innermost namespace, to allow for
-		//immediate use..
-		return parent;
-	}
-	namespace(name).namespace = namespace;
-}('tash'));
+//Define or recapture tash global instance
+window.tash = window.tash || {};
 
 (function($){
-		
-		
+
 	$.config = { 
 		debug: (function(){
 			var consoleEl = null;
@@ -56,7 +32,38 @@
 				getConsole: _getConsole
 			};
 			
-		}())
+		}()),
+		namespaceRoot: '',   //base parent to use when calling namespace function
+		namespaceEventsRoot: ''  //base parent namespace for events (used in require())
+	};
+
+	/**
+	* This function define a new namespace, under its own containing namespace.
+	* (ex.: tash.namespace( 'mine' ) will resolve to "tash.mine" )
+	*/
+	$.namespace = function( instance, nspace ) {
+		var nspaces,
+			parent = instance,
+			i = 0;
+		
+		if( typeof instance == 'string' ) {
+			nspace = ($.config.namespaceRoot ? $.config.namespaceRoot + '.' : '') + instance;
+			parent = window;
+		}
+
+		nspaces = !nspace ? '' : nspace.split('.');
+			
+		for( i in nspaces ) {
+			if( nspaces.hasOwnProperty(i) ) {
+				if( typeof parent[nspaces[i]] === 'undefined' ) {
+					parent[nspaces[i]] = {};
+				}
+				parent = parent[nspaces[i]];
+			}
+		}
+		//let's return the innermost namespace, to allow for
+		//immediate use..
+		return parent;
 	};
 	
 	/**
@@ -101,4 +108,4 @@
 			$.config.debug.getConsole().appendChild( p );
 		}
 	};
-}(tash));
+}(window.tash));

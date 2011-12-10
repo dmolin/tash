@@ -13,8 +13,21 @@ CommonTest = TestCase( "common functions", (function(){
 		},
 		
 		testNamespaceFunctionShouldCreateNamespaces: function() {
-			tash.namespace( 'test' );
+			tash.namespace( 'tash.test' );
 			assertObject( "tast.test scope should exist", tash.test );
+		},
+
+		testNamespaceFunctionShouldCreateNamespacesWithConfigurableParent: function() {
+			tash.config.namespaceRoot = 'test';
+			tash.namespace( 'tash.test' );
+			assertObject( "test.tast.test scope should exist", test.tash.test );
+			tash.config.namespaceRoot = '';
+		},
+
+		testNamespaceFunctionShouldAcceptTwoArguments: function() {
+			assertEquals( "tash.namespace should accept 2 arguments", 2, tash.namespace.length );
+			tash.namespace( window, 'test' );
+			assertObject( "tash.namespace(window, 'test') should create window.test object", window.test );
 		},
 		
 		testIsArrayWithArrayShouldReturnTrue: function() {

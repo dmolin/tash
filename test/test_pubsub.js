@@ -2,14 +2,20 @@ CommonTest = AsyncTestCase( "publish/subscribe tests", (function($){
 	//local scope
 	return {
 		setUp: function() {
+			//tash.config.namespaceRoot = tash;
 		},
-		
+
+		testTashEventsNamespaceShouldExist: function() {
+			assertObject( "tash.events namespace should exist", $.events );
+		},
+				
 		testRequireFunctionShouldExist: function() {
 			assertFunction( "require function should exist", $.events.require );
 		},
 		
 		testRequireShouldReturnNamespace: function() {
 			assertObject( "require function should return a namespace", $.events.require('account.UserLoggedIn' ) );
+			assertObject( "account.UserLoggedIn should exist", account.UserLoggedIn );
 		},
 		
 		testRequireShouldReturnNamespaceWithPubSubFunctions: function() {
@@ -21,15 +27,14 @@ CommonTest = AsyncTestCase( "publish/subscribe tests", (function($){
 		
 		testSubscribingToAnEventShouldReturnAHandle: function() {
 			var nspace = $.events.require( 'account.UserLoggedIn' ),
-				handle = $.events.account.UserLoggedIn.subscribe( function(){} );
+				handle = account.UserLoggedIn.subscribe( function(){} );
 				
 			assertNotNull( "handle returned from subscribe shouldn't be null", handle );
 		},
 		
 		testPublishingAnEventShouldNotifySubscribers: function( queue ) {
-			$.events.require( 'account.UserLoggedIn' );
-			
-			var notified = false;
+			var event = $.events.require( 'account.UserLoggedIn' ),
+				notified = false;
 			
 			//look at that! a user just logged In! let's publish an event..
 			//that must be done asynchronously, to wait until the event is
@@ -39,8 +44,8 @@ CommonTest = AsyncTestCase( "publish/subscribe tests", (function($){
 					notified = true;
 				} );
 				//subscribe for an event, let's say we are interested in loggedIn events
-				$.events.account.UserLoggedIn.subscribe( subscriber );
-				$.events.account.UserLoggedIn.publish( "some data" );
+				event.subscribe( subscriber );
+				event.publish( "some data" );
 			});
 			
 			//now check (asynchronously too) if the event was forwarded
