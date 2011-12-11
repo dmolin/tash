@@ -10,23 +10,72 @@ window.tash = window.tash || {};
 
 (function($){
 
+	$.version = {
+		major: 0,
+		minor: 0,
+		sub: 1
+	};
+
 	$.config = { 
 		debug: (function(){
 			var consoleEl = null;
 
 			function _getConsole() {
+				var consoleWrapper;
+				var consoleStyle;
+
 				if( consoleEl === null ) {
 					consoleEl = document.getElementById( $.config.debug.consoleId );
+					if( !consoleEl ) {
+						consoleStyle = document.createElement( "style" );
+						consoleStyle.appendChild( document.createTextNode(
+							[
+								"#" + $.config.debug.consoleId + "-wrapper {",
+									"display: block;",
+									"position: absolute;",
+									"bottom: 0;",
+									"height: 100px;",
+									"width: 100%;",
+									"overflow: hidden;",
+								"}",
+								"#" + $.config.debug.consoleId + "{",
+									"padding: 5px;",
+									"height: 100%;",
+									"background-color: #444;",
+									"color: #eee;",
+									"overflow: auto;",
+								"}"
+							].join('')
+						) );
+						document.body.appendChild( consoleStyle );
+						
+						consoleWrapper = document.createElement( "div");
+						consoleWrapper.id = $.config.debug.consoleId + "-wrapper";
+						/*
+						consoleWrapper.style.display = "block";
+						consoleWrapper.style.position = "absolute";
+						consoleWrapper.style.bottom = "0";
+						consoleWrapper.style.height = "100px";
+						consoleWrapper.style.width = "100%";
+						consoleWrapper.style.overflow="hidden";
+						*/
+						consoleEl = document.createElement( "div" );
+						consoleEl.id = $.config.debug.consoleId;
+						/*
+						consoleEl.style.padding = "5px";
+						consoleEl.style.height = "100%";
+						consoleEl.style.backgroundColor = "#444";
+						consoleEl.style.color="#eee";
+						consoleEl.style.overflow="auto";
+						*/
+						consoleWrapper.appendChild( consoleEl );
+						document.body.appendChild( consoleWrapper );
+					}
 				}
 				return consoleEl;
 			}
 			
-			function _set( /* Object */conf ) {
-				
-			}
-			
 			return {
-				set: _set,
 				consoleId : 'debugConsole',
 				isDebug: false,
 				getConsole: _getConsole
@@ -98,14 +147,18 @@ window.tash = window.tash || {};
 	};
 	
 	$.log = function log( msg ) {
+		if( !$.config.debug.isDebug ) {
+			return;
+		}
+
+		/** test
 		if( typeof console !== 'undefined' && typeof console.log === 'function' ) {
 			return console.log.apply( console, arguments );
 		}
+		**/
 		
-		if( $.config.debug.isDebug ) {
-			var p = document.createElement('p');
-			p.appendChild( document.createTextNode( msg ) );
-			$.config.debug.getConsole().appendChild( p );
-		}
+		var p = document.createElement('p');
+		p.appendChild( document.createTextNode( msg ) );
+		$.config.debug.getConsole().appendChild( p );
 	};
 }(window.tash));
