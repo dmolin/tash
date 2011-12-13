@@ -1,5 +1,5 @@
-/*  Tash! Compact JavaScript framework, version 0.1
- *  (c) 2011-??? Davide A. Molin
+/*  Tash! Compact JavaScript Library, version 0.0.1
+ *  (c) 2011- Davide A. Molin
  *
  * Tash! is freely distributable and released under the MIT, BSD, and GPL Licenses. 
  *
@@ -17,71 +17,6 @@ window.tash = window.tash || {};
 	};
 
 	$.config = { 
-		debug: (function(){
-			var consoleEl = null;
-
-			function _getConsole() {
-				var consoleWrapper;
-				var consoleStyle;
-
-				if( consoleEl === null ) {
-					consoleEl = document.getElementById( $.config.debug.consoleId );
-					if( !consoleEl ) {
-						consoleStyle = document.createElement( "style" );
-						consoleStyle.appendChild( document.createTextNode(
-							[
-								"#" + $.config.debug.consoleId + "-wrapper {",
-									"display: block;",
-									"position: absolute;",
-									"bottom: 0;",
-									"height: 100px;",
-									"width: 100%;",
-									"overflow: hidden;",
-								"}",
-								"#" + $.config.debug.consoleId + "{",
-									"padding: 5px;",
-									"height: 100%;",
-									"background-color: #444;",
-									"color: #eee;",
-									"overflow: auto;",
-								"}"
-							].join('')
-						) );
-						document.body.appendChild( consoleStyle );
-						
-						consoleWrapper = document.createElement( "div");
-						consoleWrapper.id = $.config.debug.consoleId + "-wrapper";
-						/*
-						consoleWrapper.style.display = "block";
-						consoleWrapper.style.position = "absolute";
-						consoleWrapper.style.bottom = "0";
-						consoleWrapper.style.height = "100px";
-						consoleWrapper.style.width = "100%";
-						consoleWrapper.style.overflow="hidden";
-						*/
-						consoleEl = document.createElement( "div" );
-						consoleEl.id = $.config.debug.consoleId;
-						/*
-						consoleEl.style.padding = "5px";
-						consoleEl.style.height = "100%";
-						consoleEl.style.backgroundColor = "#444";
-						consoleEl.style.color="#eee";
-						consoleEl.style.overflow="auto";
-						*/
-						consoleWrapper.appendChild( consoleEl );
-						document.body.appendChild( consoleWrapper );
-					}
-				}
-				return consoleEl;
-			}
-			
-			return {
-				consoleId : 'debugConsole',
-				isDebug: false,
-				getConsole: _getConsole
-			};
-			
-		}()),
 		namespaceRoot: '',   //base parent to use when calling namespace function
 		namespaceEventsRoot: ''  //base parent namespace for events (used in require())
 	};
@@ -121,12 +56,34 @@ window.tash = window.tash || {};
 	$.isArray = (typeof Array.isArray === 'function' ? Array.isArray : function isArray( /* Array */ obj ){
 		return obj !== undefined && Object.prototype.toString.call(obj).match(/Array/) !== null;
 	});
+
+	/**
+	* Adds an object/arrat to a given array
+	* Returns the number of elements added to the array. 0 if nothing has been done
+	*/
+	$.addToArray = function( destArray, obj ) {
+		var added = 0;
+		if( !$.isArray(destArray)) {
+			return added;
+		}
+
+		if( $.isArray(destArray) ) {
+			$.each( obj, function( o, index ) {
+				destArray.push( o );
+				added++;
+			} );
+		} else {
+			destArray.push( obj );
+			added++;
+		}
+		return added;
+	};
 	
 	/**
 	* Internal iterator over a collection.
 	* Iterates over the collection and calls the given callback function.
-	* a third argument can be passed in as the callback scope. If not present, the callback scope
-	* whill be "this", resolving to the actual call context (normally tash itself).
+	* a third argument can be passed in as the callback scope. If not present, "this"
+	* will be set as the iteration element.
 	*
 	* NOTE: Returning false from the callback will stop the iteration.
 	*/
@@ -139,26 +96,46 @@ window.tash = window.tash || {};
 		
 		for( index in obj ) {
 			if( obj.hasOwnProperty( index ) ) {
-				if( cb.call( (scope ? scope : this), obj[index], index ) === false ) {
+				if( cb.call( (scope ? scope : obj[index]), obj[index], index ) === false ) {
 					break;
 				}
 			}
 		}
 	};
-	
-	$.log = function log( msg ) {
-		if( !$.config.debug.isDebug ) {
-			return;
-		}
 
-		/** test
-		if( typeof console !== 'undefined' && typeof console.log === 'function' ) {
-			return console.log.apply( console, arguments );
-		}
-		**/
-		
-		var p = document.createElement('p');
-		p.appendChild( document.createTextNode( msg ) );
-		$.config.debug.getConsole().appendChild( p );
-	};
+	
 }(window.tash));
+
+if (!Array.prototype.indexOf) {
+    Array.prototype.indexOf = function (searchElement /*, fromIndex */ ) {
+        "use strict";
+        if (this === void 0 || this === null) {
+            throw new TypeError();
+        }
+        //var t = new Object( this );
+        var t = Array.concat( [], this );
+        var len = t.length >>> 0;
+        if (len === 0) {
+            return -1;
+        }
+        var n = 0;
+        if (arguments.length > 0) {
+            n = Number(arguments[1]);
+            if (n !== n) { // shortcut for verifying if it's NaN
+                n = 0;
+            } else if (n !== 0 && n !== Infinity && n !== -Infinity) {
+                n = (n > 0 || -1) * Math.floor(Math.abs(n));
+            }
+        }
+        if (n >= len) {
+            return -1;
+        }
+        var k = n >= 0 ? n : Math.max(len - Math.abs(n), 0);
+        for (; k < len; k++) {
+            if (k in t && t[k] === searchElement) {
+                return k;
+            }
+        }
+        return -1;
+    };
+}	

@@ -83,7 +83,7 @@ CommonTest = TestCase( "common functions", (function(){
 			}, this );
 			
 			tash.each( testArr, function( obj, index ) {
-				assertEquals( "default this inside the callback should be the context call", this, tash );
+				assertEquals( "default this inside the callback should be the iteration object", obj, this );
 			} );
 		}
 		
