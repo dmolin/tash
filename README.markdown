@@ -75,14 +75,14 @@ All the functions are automatically generated and bound to the namespace we requ
 
 #### Publishing an Event ####
 
-Publishing an event is simply a matter of calling tash.events.<namespace passed in in the require>.publish( optional data ).
+Publishing an event is simply a matter of calling {your new namespace}.publish( optional data ).
 
 If we required "account.UserJustLoggedIn", we can call:
 
-    tash.events.account.UserJustLoggedIn.publish();
+    account.UserJustLoggedIn.publish();
 or
 
-    tash.events.account.UserJustLoggedIn.publish( <whatever data we want to publish>, ... );
+    account.UserJustLoggedIn.publish( <whatever data we want to publish>, ... );
 
 This call will immediately notify all subscribers. At this time, the event system is synchronous, thus at the end of this call all the subscribers will've been notified (an Asynchronous interface is presently under development).
 
