@@ -16,6 +16,12 @@
       margin: 0 auto;
       width: 700px;
     }
+    .subtitle {
+        display: block;
+        font-size: 1.2em;
+        margin: 0.5em 0;
+    }
+    
     a {
       color: #eee;
     }
@@ -32,8 +38,11 @@
       font-family: 'Basic', sans-serif;
     }
 
-    h1, h2, h3, h4 {
+    h1, h2, h3, h4, .subtitle {
+      color: #eee;
       font-family: 'Squada One', cursive, FreeSans, san-serif;
+      text-shadow: 0px 2px 2px #333;
+      filter: dropshadow(color=#333, offx=0, offy=2); 
     }
 
     h1 { 
@@ -47,14 +56,12 @@
     h1 a { 
         text-decoration: none; 
         color: #ddd; 
-        text-shadow: 0px 2px 2px #333;
-        filter: dropshadow(color=#333, offx=0, offy=2); 
+        no_text-shadow: 0px 2px 2px #333;
+        no_filter: dropshadow(color=#333, offx=0, offy=2); 
       }
     h2 { 
       font-size: 1.3em; 
       color: #eee; 
-      text-shadow: 0px 2px 2px #333;
-      filter: dropshadow(color=#333, offx=0, offy=2); 
     }
     h3 { 
       text-align: center; color: #eee; 
@@ -66,10 +73,21 @@
       float: right; 
     }
     pre { 
-      background: #000; color: #fff; padding: 15px;
+      background: #222; 
+      color: #fff; 
+      padding: 15px;
+      font-family: courier, sans-serif;
+      font-size: 0.9em;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
     }
+
+    pre.code { 
+    }
+
     hr { 
-      border: 0; width: 80%; 
+      border: 0; 
+      width: 80%; 
       border-bottom: 1px solid #aaa;
     }
     .footer { 
@@ -137,16 +155,9 @@ Tash currently targets the following platforms:
       <h2>Install</h2>
       <p>To use Tash in your application, download the latest release and copy dist/tash-0.0.1[-min].js to a suitable location. Then include it in your HTML like so:
 
-<script type="text/javascript" src="/path/to/tash-0.0.1-min.js"></script></p>
-    
-
-    
-
-    
-      <h2>Authors</h2>
-      <p>Davide Alberto Molin (davide.molin@gmail.com)
-<br/>      </p>
-    
+<pre class="code">
+&lt;script type="text/javascript" src="/path/to/tash-0.0.1-min.js"&gt;&lt;/script&gt;&lt;/p&gt;
+</pre>
 
     
       <h2>Contact</h2>
