@@ -8,6 +8,7 @@
   <style type="text/css">
     body {
       margin-top: 1.0em;
+      no_color: #eee;
       background-color: #6495dd;
       font-family: Helvetica, Arial, FreeSans, san-serif;
       color: #000000;
@@ -16,13 +17,27 @@
       margin: 0 auto;
       width: 700px;
     }
-    h1 { font-size: 3.8em; color: #9b6a22; margin-bottom: 3px; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
-    h2 { font-size: 1.5em; color: #9b6a22; }
-    h3 { text-align: center; color: #9b6a22; }
-    a { color: #9b6a22; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
+    p {
+      line-height: 1.4em;
+    }
+
+    h1 { font-size: 3.8em; color: #eee; margin-bottom: 3px; }
+    h1 .small { font-size: 0.3em; }
+    h1 a { 
+        text-decoration: none; 
+        color: #ddd; 
+        text-shadow: 0px 2px 2px #333;
+        filter: dropshadow(color=#333, offx=0, offy=2); 
+      }
+    h2 { 
+      font-size: 1.3em; 
+      color: #eee; 
+      text-shadow: 0px 2px 2px #333;
+      filter: dropshadow(color=#333, offx=0, offy=2); 
+    }
+    h3 { text-align: center; color: #eee; }
+    no_a { color: #eee; }
+    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 50px; font-style: italic;}
     .download { float: right; }
     pre { background: #000; color: #fff; padding: 15px;}
     hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
@@ -43,16 +58,15 @@
     </div>
 
     <h1><a href="https://github.com/dmolin/tash">Tash!</a>
-      <span class="small">by <a href="https://github.com/dmolin">dmolin</a></span></h1>
+    <span class="small">by <a href="https://github.com/dmolin">Davide A. Molin</a></span>
+    </h1>
 
     <div class="description">
-      Small Publish/Subscribe Javascript Utility Library
+      <h2>Small Publish/Subscribe Javascript Utility Library</h2>
     </div>
 
     
-      <p>Tash
-
-A Publish/Subscribe common JavaScript Library
+      <p>Tash! is a small-footprint Publish/Subscribe common JavaScript Library.<br/>
 Tash is a small, simple Javascript library, containing a set of common namespaced functions, useful for common tasks, mainly loosely coupled communication between components. Its intent is to group in a reusable library the basic patterns and functions that should be the base of any Javascript application.
 
 Tash offers:
@@ -85,12 +99,14 @@ Chrome
 
     
       <h2>Authors</h2>
-      <p>Davide Alberto Molin (davide.molin@gmail.com)<br/>      </p>
+      <p>Davide Alberto Molin (davide.molin@gmail.com)
+<br/>      </p>
     
 
     
       <h2>Contact</h2>
-      <p>Davide Alberto Molin (davide.molin@gmail.com)<br/>      </p>
+      <p>Davide Alberto Molin (davide.molin@gmail.com)
+<br/>      </p>
     
 
     <h2>Download</h2>
