@@ -1,7 +1,7 @@
 /*  Tash! Compact JavaScript Library, version 0.0.1
  *  (c) 2011- Davide A. Molin
  *
- * Tash! is freely distributable and released under the MIT, BSD, and GPL Licenses. 
+ * Tash! is freely distributable and released under the MIT, BSD, and GPL Licenses.
  *
  *--------------------------------------------------------------------------*/
 
