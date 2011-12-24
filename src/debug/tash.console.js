@@ -185,7 +185,7 @@ tash.namespace( tash, 'debug' );
 		message = '[' + levelLabel + '] ' + msg;
 
 		if( typeof console !== 'undefined' && typeof console.log === 'function' ) {
-			return console.log.apply( console, message );
+			return console.log.call( console, message );
 		}
 
 		
