@@ -289,7 +289,7 @@ if (!Array.prototype.indexOf) {
 			consoleId: 'debugConsole'
 	};
 
-	$.debug.getConsole = ( function _getConsole() {  
+	$.debug.getConsole = ( function _getConsole() {
 		var consoleEl = null;
 
 		return function() {
@@ -459,16 +459,16 @@ if (!Array.prototype.indexOf) {
 			return;
 		}
 
-		/** test
-		if( typeof console !== 'undefined' && typeof console.log === 'function' ) {
-			return console.log.apply( console, arguments );
-		}
-		**/
 		if( ['INFO', 'WARN', 'ERR '].indexOf( level ) >= 0 ) {
 			levelLabel = level;
 		}
 
 		message = '[' + levelLabel + '] ' + msg;
+
+		if( typeof console !== 'undefined' && typeof console.log === 'function' ) {
+			return console.log.apply( console, message );
+		}
+
 		
 		var p = document.createElement('p');
 		p.setAttribute( "class", "log-level-" + (level ? level.toUpperCase() : "INFO" ) );
@@ -485,7 +485,7 @@ if (!Array.prototype.indexOf) {
 		$.log( msg, $.log.INFO );
 	};
 	$.warn = function err( msg ) {
-		$.log( msg, $.log.WARN );	
+		$.log( msg, $.log.WARN );
 	};
 	$.err = function err( msg ) {
 		$.log( msg, $.log.ERR );
