@@ -178,7 +178,6 @@ tash.namespace( tash, 'debug' );
 			return;
 		}
 
-
 		if( typeof console !== 'undefined' && typeof console.log === 'function' ) {
 			return console.log.apply( console, arguments );
 		}
