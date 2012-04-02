@@ -3,8 +3,7 @@ Tash
 
 #### A Publish/Subscribe common JavaScript Library ####
 
-Tash is a small, simple Javascript library, containing a set of common namespaced
-functions, useful for enhancing loosely coupled communication between reactive components. With Tash, objects communicate publishing messages and reacting to messages sent by other objects.
+Tash is a small, simple Javascript library, containing a set of common namespaced functions, useful for enhancing loosely coupled communication between reactive components. With Tash, objects communicate publishing messages and reacting to messages sent by other objects.
 Its intent is to group in a reusable library the basic patterns and functions that should be the base of any Javascript application.
 
 Tash offers:
