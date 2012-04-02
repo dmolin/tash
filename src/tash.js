@@ -1,10 +1,3 @@
-/*  Tash! Compact JavaScript Library, version 0.0.1
- *  (c) 2011- Davide A. Molin
- *
- * Tash! is freely distributable and released under the MIT, BSD, and GPL Licenses. 
- *
- *--------------------------------------------------------------------------*/
-
 //Define or recapture tash global instance
 window.tash = window.tash || {};
 
@@ -16,7 +9,7 @@ window.tash = window.tash || {};
 		sub: 1
 	};
 
-	$.config = { 
+	$.config = {
 		namespaceRoot: '',   //base parent to use when calling namespace function
 		namespaceEventsRoot: ''  //base parent namespace for events (used in require())
 	};
@@ -29,14 +22,14 @@ window.tash = window.tash || {};
 		var nspaces,
 			parent = instance,
 			i = 0;
-		
+
 		if( typeof instance == 'string' ) {
 			nspace = ($.config.namespaceRoot ? $.config.namespaceRoot + '.' : '') + instance;
 			parent = window;
 		}
 
 		nspaces = !nspace ? '' : nspace.split('.');
-			
+
 		for( i in nspaces ) {
 			if( nspaces.hasOwnProperty(i) ) {
 				if( typeof parent[nspaces[i]] === 'undefined' ) {
@@ -49,7 +42,7 @@ window.tash = window.tash || {};
 		//immediate use..
 		return parent;
 	};
-	
+
 	/**
 	* Determines if the passed in Object IS an Array
 	*/
@@ -78,7 +71,7 @@ window.tash = window.tash || {};
 		}
 		return added;
 	};
-	
+
 	/**
 	* Internal iterator over a collection.
 	* Iterates over the collection and calls the given callback function.
@@ -89,11 +82,11 @@ window.tash = window.tash || {};
 	*/
 	$.each = function each( /* Array */obj, /* Function */cb, /* object */scope ) {
 		var index;
-		
+
 		if( !$.isArray( obj ) ) {
 			return; //no array, no loop
 		}
-		
+
 		for( index in obj ) {
 			if( obj.hasOwnProperty( index ) ) {
 				if( cb.call( (scope ? scope : obj[index]), obj[index], index ) === false ) {
@@ -103,39 +96,38 @@ window.tash = window.tash || {};
 		}
 	};
 
-	
+
 }(window.tash));
 
 if (!Array.prototype.indexOf) {
-    Array.prototype.indexOf = function (searchElement /*, fromIndex */ ) {
-        "use strict";
-        if (this === void 0 || this === null) {
-            throw new TypeError();
-        }
-        //var t = new Object( this );
-        var t = Array.concat( [], this );
-        var len = t.length >>> 0;
-        if (len === 0) {
-            return -1;
-        }
-        var n = 0;
-        if (arguments.length > 0) {
-            n = Number(arguments[1]);
-            if (n !== n) { // shortcut for verifying if it's NaN
-                n = 0;
-            } else if (n !== 0 && n !== Infinity && n !== -Infinity) {
-                n = (n > 0 || -1) * Math.floor(Math.abs(n));
-            }
-        }
-        if (n >= len) {
-            return -1;
-        }
-        var k = n >= 0 ? n : Math.max(len - Math.abs(n), 0);
-        for (; k < len; k++) {
-            if (k in t && t[k] === searchElement) {
-                return k;
-            }
-        }
-        return -1;
-    };
-}	
+	Array.prototype.indexOf = function (searchElement /*, fromIndex */ ) {
+		"use strict";
+		if (this === void 0 || this === null) {
+			throw new TypeError();
+		}
+		var t = [].concat( this );
+		var len = t.length >>> 0;
+		if (len === 0) {
+			return -1;
+		}
+		var n = 0;
+		if (arguments.length > 0) {
+			n = Number(arguments[1]);
+			if (n !== n) { // shortcut for verifying if it's NaN
+				n = 0;
+			} else if (n !== 0 && n !== Infinity && n !== -Infinity) {
+				n = (n > 0 || -1) * Math.floor(Math.abs(n));
+			}
+		}
+		if (n >= len) {
+			return -1;
+		}
+		var k = n >= 0 ? n : Math.max(len - Math.abs(n), 0);
+		for (; k < len; k++) {
+			if (k in t && t[k] === searchElement) {
+				return k;
+			}
+		}
+		return -1;
+	};
+}

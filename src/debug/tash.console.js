@@ -8,7 +8,7 @@ tash.namespace( tash, 'debug' );
 			consoleId: 'debugConsole'
 	};
 
-	$.debug.getConsole = ( function _getConsole() {  
+	$.debug.getConsole = ( function _getConsole() {
 		var consoleEl = null;
 
 		return function() {
@@ -47,10 +47,10 @@ tash.namespace( tash, 'debug' );
 				$.addToArray( styles, titleBarStyles );
 				consoleTitleBar = document.createElement( "div" );
 				consoleTitleBar.setAttribute( "class", "debugConsole-titlebar");
-				
+
 				buttons = document.createElement( "div" );
 				buttons.setAttribute( "class", "titlebar-buttons" );
-				
+
 				clearAll = document.createElement( "a" );
 				clearAll.setAttribute( "href", "#" );
 				clearAll.setAttribute( "class", "clear-all" );
@@ -88,14 +88,14 @@ tash.namespace( tash, 'debug' );
 				consoleWrapper = document.getElementById( mainStyleSelector.substr(1) );
 
 				if( !consoleWrapper ) {
-					
+
 					$.addToArray( styles, st );
 
 					consoleWrapper = document.createElement( "div");
 					//note: the class 'overload-hook' is given to allow overriding styles ;)
 					consoleWrapper.id = $.config.debug.consoleId + "-wrapper";
 					consoleWrapper.setAttribute( 'class', 'overload-hook' );
-					
+
 					consoleWrapper.appendChild( createTitleBar( mainStyleSelector, computedStyles ) );
 					return true;
 				}
@@ -157,7 +157,7 @@ tash.namespace( tash, 'debug' );
 
 					consoleStyle = document.createElement( "style" );
 					consoleStyle.appendChild( document.createTextNode( computedStyles.join('') ) );
-					
+
 
 					if( created ) {
 						document.body.appendChild( consoleStyle );
@@ -170,7 +170,7 @@ tash.namespace( tash, 'debug' );
 	}());
 
 	$.log = function log( msg, level ) {
-		
+
 		var message = msg,
 			levelLabel = $.log.INFO;
 
@@ -188,7 +188,7 @@ tash.namespace( tash, 'debug' );
 		}
 
 		message = '[' + levelLabel + '] ' + msg;
-		
+
 		var p = document.createElement('p');
 		p.setAttribute( "class", "log-level-" + (level ? level.toUpperCase() : "INFO" ) );
 		p.appendChild( document.createTextNode( message ) );
@@ -204,11 +204,11 @@ tash.namespace( tash, 'debug' );
 		$.log( msg, $.log.INFO );
 	};
 	$.warn = function err( msg ) {
-		$.log( msg, $.log.WARN );	
+		$.log( msg, $.log.WARN );
 	};
 	$.err = function err( msg ) {
 		$.log( msg, $.log.ERR );
 	};
 
-			
+
 }(tash));
