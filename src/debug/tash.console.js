@@ -178,11 +178,11 @@ tash.namespace( tash, 'debug' );
 			return;
 		}
 
-		/** test
+
 		if( typeof console !== 'undefined' && typeof console.log === 'function' ) {
 			return console.log.apply( console, arguments );
 		}
-		**/
+
 		if( ['INFO', 'WARN', 'ERR '].indexOf( level ) >= 0 ) {
 			levelLabel = level;
 		}
