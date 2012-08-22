@@ -102,6 +102,52 @@ window.tash = window.tash || {};
 		}
 	};
 
+/*
+ *  Utility module
+ ----------------------------------------*/
+	$.util = {
+		/**
+		* Microtemplating facility
+		*/
+		template: function( tmpl, obj ) {
+			var i,
+				matches = tmpl.match(/\{\{(\w+)\}\}/g);
+			if( matches ) {
+				for( i = 0; i < matches.length; i+=1 ) {
+					var matched = matches[i];
+					if( matched.charAt(0) !== '{' ) {
+						return; //skip non matching elements
+					}
+					tmpl = tmpl.replace( matched, obj[matched.substr(2, matched.length-4)]||matched );
+				}
+			}
+			return tmpl;
+		},
+
+		trimAt: function( str, length ) {
+			if( str && str.length && str.length > length ) {
+				str = str.substr( 0, length-3 ) + '...';
+			}
+			return str;
+		},
+
+		isDefined: function( objectName ) {
+			var parts = objectName.split('.'),
+				parent = window,
+				i;
+
+			for( i in parts ) {
+				if( parts.hasOwnProperty(i) ) {
+					if( typeof parent[parts[i]] === 'undefined' ) {
+						return false;
+					}
+					parent = parent[parts[i]];
+				}
+			}
+			return true;
+		}
+	};
+
 
 }(window.tash));
 
