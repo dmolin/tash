@@ -1,4 +1,6 @@
 //Define or recapture tash global instance
+/*jshint unused:false */
+/*global window:true */
 window.tash = window.tash || {};
 
 (function($){
@@ -61,7 +63,7 @@ window.tash = window.tash || {};
 		}
 
 		if( $.isArray(destArray) ) {
-			$.each( obj, function( o, index ) {
+			$.each( obj, function( o/*, index*/ ) {
 				destArray.push( o );
 				added++;
 			} );
