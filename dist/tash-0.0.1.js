@@ -1,10 +1,6 @@
-/*  Tash! Reactive JavaScript Library, version 0.0.1
- *  (c) 2011-2012 Davide A. Molin
- *
- * Tash! is freely distributable and released under the MIT, BSD, and GPL Licenses.
- *
- *--------------------------------------------------------------------------*/
 //Define or recapture tash global instance
+/*jshint unused:false */
+/*global window:true */
 window.tash = window.tash || {};
 
 (function($){
@@ -67,7 +63,7 @@ window.tash = window.tash || {};
 		}
 
 		if( $.isArray(destArray) ) {
-			$.each( obj, function( o, index ) {
+			$.each( obj, function( o/*, index*/ ) {
 				destArray.push( o );
 				added++;
 			} );
@@ -183,6 +179,7 @@ if (!Array.prototype.indexOf) {
 		return -1;
 	};
 }
+
 /**
 * Module used for Publishing/Subscribing to events
 *
