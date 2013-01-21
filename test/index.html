@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Test Runner</title>
+
+	<link rel="stylesheet" href="jasmine/jasmine.css">
+
+	<script src="jasmine/jasmine.js"></script>
+	<script src="jasmine/jasmine-html.js"></script>
+	<script src="jasmine/jasmine-junit.js"></script>
+
+
+	<script src="code"></script>
+</head>
+
+<body>
+
+        <!-- Test Runner -->
+        <script type="text/javascript">
+                var jasmineEnv = jasmine.getEnv();
+                jasmineEnv.updateInterval = 1000;
+
+                var htmlReporter = new jasmine.HtmlReporter();
+                var junitReporter = new jasmine.PhantomJSReporter();
+                window.tests = new jasmine.JsApiReporter();
+
+                window.tests.log = function (str) {
+                    console.log("-------> ", str);
+                }
+
+                jasmineEnv.addReporter(htmlReporter);
+                jasmineEnv.addReporter(junitReporter);
+                jasmineEnv.addReporter(window.tests);
+
+                jasmineEnv.specFilter = function(spec) {
+                    return htmlReporter.specFilter(spec);
+                };
+
+                jasmineEnv.execute();
+
+                window.onerror = function() {
+                    if (!htmlReporter.views) { return false; }
+                    var args = arguments;
+
+                    describe("Global Error:", function() {
+                        it("A " + args[0] + " error occured", function() {
+                            expect(args).toEqual([]);
+                        });
+                    });
+                    return false;
+                };
+        </script>	
+</body>
+
+</html>

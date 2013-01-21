@@ -321,3 +321,10 @@ if (!Array.prototype.indexOf) {
 	};
 
 }(tash));
+describe("Tash tests", function () {
+	it("should provide a namespace", function () {
+		expect( tash ).toBeDefined();
+		//expect( tash ).toBe"tash namespace should exist", tash );
+	});
+});
+

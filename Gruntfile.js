@@ -17,6 +17,10 @@ module.exports = function (grunt) {
             exclude: ["tash.console.js"]
         },
 
+        test: {
+            path: 'test/'
+        }
+
         /* add it when tests will be grunt-integrated */
         //watch: {
         //    files: [
