@@ -24,9 +24,9 @@ module.exports = function (grunt) {
     }(grunt));
 
     grunt.loadTasks("build-tasks");
+    grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-contrib-watch");
-    grunt.loadNpmTasks('grunt-contrib-jasmine');
 
     grunt.initConfig({
         jshint: { 
@@ -44,12 +44,12 @@ module.exports = function (grunt) {
         },
 
         jasmine: {
-            src: "src/**/*.js",
-
-            options: {
-                specs: "src/**/*.spec.js"    
+            run: {
+                src: 'src/**/*.js',
+                options: {
+                    specs: 'src/**/*.spec.js'
+                }
             }
-
         },
 
         /* add it when tests will be grunt-integrated */
