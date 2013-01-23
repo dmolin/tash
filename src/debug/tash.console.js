@@ -1,6 +1,6 @@
 /*jshint devel:true */
 /*global tash:true, document:true*/
-tash.namespace( tash, 'debug' );
+tash.namespace( 'tash.debug' );
 
 (function($){
 

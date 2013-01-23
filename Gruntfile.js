@@ -12,14 +12,14 @@ module.exports = function (grunt) {
               return false;
             }
           });
-        };        
+        };
         var expandByType = function(type) {
           var args = grunt.util.toArray(arguments).slice(1);
           // If the first argument is an options object, grab it.
           var options = grunt.util.kindOf(args[0]) === 'object' ? args[0] : {};
           // Match, then filter filepaths.
           return filterByType(type, options.cwd, grunt.file.expand.apply(grunt.file, args));
-        };    
+        };
         grunt.file.expandFiles = expandByType.bind(grunt.file, 'isFile');
     }(grunt));
 
@@ -29,7 +29,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-contrib-watch");
 
     grunt.initConfig({
-        jshint: { 
+        jshint: {
             src: [
                 "src/*.js",
                 "src/**/*.js"
@@ -45,7 +45,7 @@ module.exports = function (grunt) {
 
         jasmine: {
             run: {
-                src: 'src/**/*.js',
+                src: ['src/tash.js', 'src/**/*.js', '!src/**/*.spec.js'],
                 options: {
                     specs: 'src/**/*.spec.js'
                 }

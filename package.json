@@ -4,13 +4,13 @@
     "version": "0.0.1",
 
     "scripts": {
-        "preinstall": "npm install -g grunt-cli@~0.1.4"
+        "preinstall": "npm install -g grunt-cli@~0.1.6"
     },
 
     "devDependencies" : {
         "grunt-contrib-jasmine": "latest",
         "grunt":  "~0.4.0",
-        "grunt-cli": "~0.1.4",
+        "grunt-cli": "~0.1.6",
         "grunt-contrib-jshint": "*",
         "grunt-contrib-watch": "*",
         "uglify-js":        "*"

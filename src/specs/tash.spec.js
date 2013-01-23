@@ -33,6 +33,9 @@ describe("Tash tests", function () {
 		});
 
 
+		it("another spec, just for testing", function () {
+			expect(true).toBe(true);
+		});
 	});
 
 });
