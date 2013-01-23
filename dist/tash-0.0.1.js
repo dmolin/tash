@@ -98,9 +98,9 @@ window.tash = window.tash || {};
 		}
 	};
 
-/*
- *  Utility module
- ----------------------------------------*/
+	/*----------------------------------------
+	 *  Utility module
+	 *----------------------------------------*/
 	$.util = {
 		/**
 		* Microtemplating facility
@@ -141,7 +141,29 @@ window.tash = window.tash || {};
 				}
 			}
 			return true;
+		},
+
+		mixin: function( dest, proto ) {
+			//mix an object into another
+			var prop, orig;
+
+			for( prop in proto ) {
+				orig = null;
+				//console.log( "adding " + prop + " to dest" );
+				if( proto.hasOwnProperty( prop ) ) {
+					if (typeof dest[prop] === "function") {
+						orig = dest[prop];
+					}
+					dest[prop] = proto[prop];
+
+					if (orig) {
+						dest[prop].parent = proto[prop];
+					}
+				}
+			}
+			return dest;
 		}
+
 	};
 
 
@@ -314,7 +336,7 @@ if (!Array.prototype.indexOf) {
 
 		//create the publish/subscribe/unsubscribe functions in the namespace
 		nspace.publish = function( data ) { _publish( namespacedEvent, ( $.isArray(data) ? data : [data]) ); };
-		nspace.subscribe = function( callback ) { return _subscribe( namespacedEvent, callback ); };
+		nspace.subscribe = function( callback, scope ) { return _subscribe( namespacedEvent, callback, scope ); };
 		nspace.unsubscribe = function( handleFromSubscribe ) { return _unsubscribe( handleFromSubscribe ); };
 
 		return nspace; //let's allow chaining
@@ -322,9 +344,41 @@ if (!Array.prototype.indexOf) {
 
 }(tash));
 describe("Tash tests", function () {
+	beforeEach(function () {
+		tash.namespace("test");
+	});
+
+	afterEach(function () {
+		if (test) {
+			test = undefined;
+		}
+	});
+
 	it("should provide a namespace", function () {
 		expect( tash ).toBeDefined();
-		//expect( tash ).toBe"tash namespace should exist", tash );
 	});
+
+	it("tash should provide a namespace function", function () {
+		expect(typeof tash.namespace).toBe("function");
+	});
+
+	describe("Namespace creation", function () {
+
+		it("namespace function should work as expected", function () {
+			tash.namespace("test.namespace");
+			expect(typeof test.namespace).toBe("object");
+		});
+
+		it("namespace creation should be configurable", function () {
+			tash.config.namespaceRoot = "test";
+			tash.namespace("undertest");
+			expect(typeof test).toBe("object");
+			expect(typeof test.undertest).toBe("object");
+			tash.config.namespaceRoot = "";
+		});
+
+
+	});
+
 });
 

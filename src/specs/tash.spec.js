@@ -1,4 +1,14 @@
 describe("Tash tests", function () {
+	beforeEach(function () {
+		tash.namespace("test");
+	});
+
+	afterEach(function () {
+		if (test) {
+			test = undefined;
+		}
+	});
+
 	it("should provide a namespace", function () {
 		expect( tash ).toBeDefined();
 	});
@@ -12,7 +22,6 @@ describe("Tash tests", function () {
 		it("namespace function should work as expected", function () {
 			tash.namespace("test.namespace");
 			expect(typeof test.namespace).toBe("object");
-			delete test;
 		});
 
 		it("namespace creation should be configurable", function () {
@@ -21,7 +30,6 @@ describe("Tash tests", function () {
 			expect(typeof test).toBe("object");
 			expect(typeof test.undertest).toBe("object");
 			tash.config.namespaceRoot = "";
-			delete test;
 		});
 
 

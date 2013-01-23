@@ -132,7 +132,7 @@
 
 		//create the publish/subscribe/unsubscribe functions in the namespace
 		nspace.publish = function( data ) { _publish( namespacedEvent, ( $.isArray(data) ? data : [data]) ); };
-		nspace.subscribe = function( callback ) { return _subscribe( namespacedEvent, callback ); };
+		nspace.subscribe = function( callback, scope ) { return _subscribe( namespacedEvent, callback, scope ); };
 		nspace.unsubscribe = function( handleFromSubscribe ) { return _unsubscribe( handleFromSubscribe ); };
 
 		return nspace; //let's allow chaining

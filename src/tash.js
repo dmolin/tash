@@ -98,9 +98,9 @@ window.tash = window.tash || {};
 		}
 	};
 
-/*
- *  Utility module
- ----------------------------------------*/
+	/*----------------------------------------
+	 *  Utility module
+	 *----------------------------------------*/
 	$.util = {
 		/**
 		* Microtemplating facility
@@ -141,7 +141,29 @@ window.tash = window.tash || {};
 				}
 			}
 			return true;
+		},
+
+		mixin: function( dest, proto ) {
+			//mix an object into another
+			var prop, orig;
+
+			for( prop in proto ) {
+				orig = null;
+				//console.log( "adding " + prop + " to dest" );
+				if( proto.hasOwnProperty( prop ) ) {
+					if (typeof dest[prop] === "function") {
+						orig = dest[prop];
+					}
+					dest[prop] = proto[prop];
+
+					if (orig) {
+						dest[prop].parent = proto[prop];
+					}
+				}
+			}
+			return dest;
 		}
+
 	};
 
 
