@@ -1,6 +1,12 @@
 //Define or recapture tash global instance
 /*jshint unused:false */
 /*global window:true */
+/*  Tash! Reactive JavaScript Library, version 0.0.1
+ *  (c) 2011-2012 Davide A. Molin
+ *
+ * Tash! is freely distributable and released under the MIT, BSD, and GPL Licenses.
+ *
+ *--------------------------------------------------------------------------*/
 window.tash = window.tash || {};
 
 (function($){

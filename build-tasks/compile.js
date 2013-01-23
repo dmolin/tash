@@ -6,6 +6,8 @@ module.exports = function (grunt) {
         var cfg = grunt.config.data.compile,
             list = [],
             firsts,
+            file,
+            filename,
             files,
             excl,
             cfgfirst,
@@ -31,9 +33,7 @@ module.exports = function (grunt) {
 
         //write the un-minified script
         grunt.file.write(cfg.dest + ".js", list.join('\n'));
-
         out = uglify.minify(files, 'utf8', {outSourceMap: cfg.dest + ".js.map"});
-
         grunt.file.write(cfg.dest + "-min.js", out.code);
 
         //write the source map too
@@ -45,6 +45,7 @@ module.exports = function (grunt) {
         var file,
             filename,
             files,
+            fileStat,
             retlist = (cfg && cfg.list)||[];
 
         files = fs.readdirSync(folder); 

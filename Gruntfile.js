@@ -9,8 +9,8 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         jshint: {
-            run: {
-                files: [ "src/**/*.js" ]
+            files: {
+                src: ["src/**/*.js"]
             }
         },
 
