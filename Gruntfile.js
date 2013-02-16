@@ -9,8 +9,8 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         jshint: {
-            run: {
-                files: [ "src/**/*.js" ]
+            files: {
+                src:['src/**/*.js']
             }
         },
 
@@ -18,7 +18,7 @@ module.exports = function (grunt) {
             folder: "src",
             dest: "dist/tash-0.0.1",
             first: ["tash.js"],
-            exclude: ["tash.console.js"]
+            exclude: ["tash.console.js", "REGEX:.*.spec.js$", ".DS_Store"]
         },
 
         jasmine: {

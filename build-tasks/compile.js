@@ -4,6 +4,7 @@ var fs = require("fs"),
 module.exports = function (grunt) {
     grunt.registerTask("compile", "Compile and minify all the source files", function () {
         var cfg = grunt.config.data.compile,
+            file,
             list = [],
             firsts,
             files,
@@ -45,9 +46,11 @@ module.exports = function (grunt) {
         var file,
             filename,
             files,
+            excludeGlob,
+            toSkip,
             retlist = (cfg && cfg.list)||[];
 
-        files = fs.readdirSync(folder); 
+        files = fs.readdirSync(folder);
 
         for (file in files) {
             if (files.hasOwnProperty(file)) {
@@ -68,8 +71,26 @@ module.exports = function (grunt) {
                         continue;
                     }
 
-                    if (cfg.exclude && (cfg.exclude.indexOf(filename)) >= 0) {
-                        continue;
+                    if (cfg.exclude) {
+                        toSkip = false;
+                        for(excludeGlob in cfg.exclude) {
+                            if( cfg.exclude.hasOwnProperty(excludeGlob) ) {
+                                excludeGlob = cfg.exclude[excludeGlob];
+                                if(/REGEX:/.test(excludeGlob)) {
+                                    excludeGlob = excludeGlob.match(/REGEX:(.*)/)[1];
+                                    if(new RegExp(excludeGlob).test(filename)) {
+                                        toSkip = true;
+                                        break;
+                                    }
+                                } else if (cfg.exclude.indexOf(filename) >= 0) {
+                                    toSkip = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if(toSkip) {
+                            continue;
+                        }
                     }
 
                     retlist.push(folder + "/" + filename);
@@ -77,6 +98,6 @@ module.exports = function (grunt) {
             }
         }
 
-        return retlist; 
+        return retlist;
     }
 };
